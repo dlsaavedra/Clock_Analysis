@@ -1,0 +1,684 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Prueba\_Manometro}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{cv2} 
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \hypertarget{lectura-de-imagen}{%
+\section{0.- Lectura de Imagen}\label{lectura-de-imagen}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{o\PYZus{}image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bar\PYZus{}1.jpeg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{o\PYZus{}image}\PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{o\PYZus{}image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{o\PYZus{}image}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Imagen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} Text(0.5, 1.0, 'Imagen')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{detecciuxf3n-de-circulos}{%
+\section{1.-Detección de Circulos}\label{detecciuxf3n-de-circulos}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Read image. }
+        
+        \PY{n}{o\PYZus{}image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bar\PYZus{}1.jpeg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{o\PYZus{}image}\PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{o\PYZus{}image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+        \PY{n}{ideal\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{300}
+        
+        
+        \PY{n}{new\PYZus{}size} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{o\PYZus{}image}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{o\PYZus{}image}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{300}\PY{p}{)}\PY{p}{)}
+        \PY{n}{new\PYZus{}size} \PY{o}{=} \PY{n}{new\PYZus{}size}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{new\PYZus{}size}\PY{p}{)}
+        \PY{n}{o\PYZus{}image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{o\PYZus{}image}\PY{p}{,} \PY{p}{(}\PY{n}{new\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{new\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{image} \PY{o}{=} \PY{n}{o\PYZus{}image}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Convert to grayscale. }
+        \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2HSV}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} 
+        \PY{c+c1}{\PYZsh{}}
+        
+        \PY{n}{min\PYZus{}size} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{gray}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n}{max\PYZus{}size} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{gray}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Blur using 3 * 3 kernel. }
+        \PY{n}{gray\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{blur}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)} 
+          
+        \PY{c+c1}{\PYZsh{} Apply Hough transform on the blurred image. }
+        \PY{n}{detected\PYZus{}circles} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{HoughCircles}\PY{p}{(}\PY{n}{gray\PYZus{}blurred}\PY{p}{,}  
+                           \PY{n}{cv2}\PY{o}{.}\PY{n}{HOUGH\PYZus{}GRADIENT}\PY{p}{,} \PY{n}{dp} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{minDist} \PY{o}{=} \PY{n}{max\PYZus{}size}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{param1} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} 
+                       \PY{n}{param2} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{minRadius} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{min\PYZus{}size}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{maxRadius} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{min\PYZus{}size}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} 
+        
+        \PY{c+c1}{\PYZsh{} Draw circles that are detected. }
+        \PY{k}{if} \PY{n}{detected\PYZus{}circles} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:} 
+          
+            \PY{c+c1}{\PYZsh{} Convert the circle parameters a, b and r to integers. }
+            \PY{n}{detected\PYZus{}circles} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{uint16}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{around}\PY{p}{(}\PY{n}{detected\PYZus{}circles}\PY{p}{)}\PY{p}{)} 
+            
+            \PY{k}{for} \PY{n}{pt} \PY{o+ow}{in} \PY{n}{detected\PYZus{}circles}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{:} 
+                \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{n}{pt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{pt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{pt}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} 
+          
+                \PY{c+c1}{\PYZsh{} Draw the circumference of the circle. }
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} 
+          
+                \PY{c+c1}{\PYZsh{} Draw a small circle (of radius 1) to show the center. }
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)} 
+                \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+        
+        
+        
+        \PY{n}{cx}\PY{p}{,}\PY{n}{cy}\PY{p}{,}\PY{n}{r}  \PY{o}{=} \PY{n}{detected\PYZus{}circles}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}  \PY{c+c1}{\PYZsh{} utilizar solo un circulo detectado}
+        \PY{n}{cx} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cx}\PY{p}{)}
+        \PY{n}{cy} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cy}\PY{p}{)}
+        \PY{n}{r} \PY{o}{=} \PY{n+nb}{int} \PY{p}{(}\PY{n}{r}\PY{p}{)}
+        \PY{n}{delta} \PY{o}{=} \PY{l+m+mi}{5}
+        \PY{n}{r} \PY{o}{+}\PY{o}{=}\PY{n}{delta}
+        
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{o\PYZus{}image}\PY{p}{[}\PY{n}{cy}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{p}{:}\PY{n}{cy}\PY{o}{+}\PY{n}{r}\PY{p}{,}\PY{n}{cx}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{p}{:}\PY{n}{cx}\PY{o}{+}\PY{n}{r}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crop circle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[533 300]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Text(0.5, 1.0, 'Crop circle')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{doble-detecciuxf3n-de-circulo-corroboraciuxf3n}{%
+\section{2.-Doble detección de circulo
+(corroboración)}\label{doble-detecciuxf3n-de-circulo-corroboraciuxf3n}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Convert to grayscale. }
+        \PY{n}{gray\PYZus{}blurred} \PY{o}{=} \PY{n}{gray\PYZus{}blurred}\PY{p}{[}\PY{n}{cy}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{p}{:}\PY{n}{cy}\PY{o}{+}\PY{n}{r}\PY{p}{,}\PY{n}{cx}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{p}{:}\PY{n}{cx}\PY{o}{+}\PY{n}{r}\PY{p}{]}
+        \PY{n}{image\PYZus{}crop} \PY{o}{=} \PY{n}{o\PYZus{}image}\PY{p}{[}\PY{n}{cy}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{p}{:}\PY{n}{cy}\PY{o}{+}\PY{n}{r}\PY{p}{,}\PY{n}{cx}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{p}{:}\PY{n}{cx}\PY{o}{+}\PY{n}{r}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        \PY{n}{image} \PY{o}{=} \PY{n}{image\PYZus{}crop}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}}
+        \PY{n}{min\PYZus{}size} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{gray\PYZus{}blurred}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n}{max\PYZus{}size} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{gray\PYZus{}blurred}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} Apply Hough transform on the blurred image. }
+        \PY{n}{detected\PYZus{}circles} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{HoughCircles}\PY{p}{(}\PY{n}{gray\PYZus{}blurred}\PY{p}{,}  
+                           \PY{n}{cv2}\PY{o}{.}\PY{n}{HOUGH\PYZus{}GRADIENT}\PY{p}{,} \PY{n}{dp} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{minDist} \PY{o}{=} \PY{n}{max\PYZus{}size}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{param1} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} 
+                           \PY{n}{param2} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{minRadius} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{min\PYZus{}size}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{maxRadius} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{min\PYZus{}size}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} 
+        
+        
+        
+        \PY{c+c1}{\PYZsh{} Draw circles that are detected. }
+        \PY{k}{if} \PY{n}{detected\PYZus{}circles} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:} 
+          
+            \PY{c+c1}{\PYZsh{} Convert the circle parameters a, b and r to integers. }
+            \PY{n}{detected\PYZus{}circles} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{uint16}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{around}\PY{p}{(}\PY{n}{detected\PYZus{}circles}\PY{p}{)}\PY{p}{)} 
+          
+            \PY{k}{for} \PY{n}{pt} \PY{o+ow}{in} \PY{n}{detected\PYZus{}circles}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{:} 
+                \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{n}{pt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{pt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{pt}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} 
+          
+                \PY{c+c1}{\PYZsh{} Draw the circumference of the circle. }
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} 
+          
+                \PY{c+c1}{\PYZsh{} Draw a small circle (of radius 1) to show the center. }
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)} 
+                \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+        
+        
+        
+        
+        \PY{n}{cx2}\PY{p}{,}\PY{n}{cy2}\PY{p}{,}\PY{n}{r2}  \PY{o}{=} \PY{n}{detected\PYZus{}circles}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}  \PY{c+c1}{\PYZsh{} utilizar solo un circulo detectado}
+        \PY{n}{delta} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}
+        \PY{n}{r2} \PY{o}{+}\PY{o}{=}\PY{n}{delta}
+        \PY{n}{cx2} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cx2}\PY{p}{)}
+        \PY{n}{cy2} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cy2}\PY{p}{)}
+        \PY{n}{r2} \PY{o}{=} \PY{n+nb}{int} \PY{p}{(}\PY{n}{r2}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}crop}\PY{p}{[}\PY{n}{cy2} \PY{o}{\PYZhy{}} \PY{n}{r2}\PY{p}{:} \PY{n}{cy2} \PY{o}{+} \PY{n}{r2}\PY{p}{,} \PY{n}{cx2}\PY{o}{\PYZhy{}}\PY{n}{r2} \PY{p}{:} \PY{n}{cx2} \PY{o}{+} \PY{n}{r2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{image\PYZus{}center} \PY{o}{=}\PY{n}{image\PYZus{}crop}\PY{p}{[}\PY{n}{cy2} \PY{o}{\PYZhy{}} \PY{n}{r2}\PY{p}{:} \PY{n}{cy2} \PY{o}{+} \PY{n}{r2}\PY{p}{,} \PY{n}{cx2}\PY{o}{\PYZhy{}}\PY{n}{r2} \PY{p}{:} \PY{n}{cx2} \PY{o}{+} \PY{n}{r2}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{image\PYZus{}center}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{image\PYZus{}center}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{p}{(}\PY{p}{(}\PY{n}{r2}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{r2}\PY{o}{\PYZhy{}}\PY{n}{j}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{r2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{delta}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{:} 
+                    \PY{n}{image\PYZus{}center}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{255}
+        
+        \PY{n}{new\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{200}
+        \PY{n}{image\PYZus{}center} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{image\PYZus{}center}\PY{p}{,} \PY{p}{(}\PY{n}{new\PYZus{}size}\PY{p}{,} \PY{n}{new\PYZus{}size}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}center}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <matplotlib.image.AxesImage at 0x7f20dcf14358>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{transformaciuxf3n-polar-de-la-imagen}{%
+\section{3.- Transformación Polar de la
+Imagen}\label{transformaciuxf3n-polar-de-la-imagen}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{center} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{image\PYZus{}center}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+        \PY{n}{maxRadius} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{image\PYZus{}center}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{n}{border} \PY{o}{=} \PY{l+m+mi}{50}
+        \PY{n}{polar\PYZus{}image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{linearPolar}\PY{p}{(}\PY{n}{image\PYZus{}center}\PY{p}{,} \PY{p}{(}\PY{n}{center}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{center}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{maxRadius}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{WARP\PYZus{}FILL\PYZus{}OUTLIERS}\PY{p}{)}
+        \PY{n}{polar\PYZus{}image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{polar\PYZus{}image}\PY{p}{,} \PY{p}{(}\PY{n}{new\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{360}\PY{p}{)}\PY{p}{)}
+        \PY{n}{polar\PYZus{}image} \PY{o}{=} \PY{n}{polar\PYZus{}image}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}
+        \PY{n}{polar\PYZus{}image} \PY{o}{=} \PY{n}{polar\PYZus{}image}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{border}\PY{p}{:}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}Inverse transform}
+        \PY{c+c1}{\PYZsh{}original\PYZus{}image = cv2.linearPolar(polar\PYZus{}image, (180,180), maxRadius*.5, cv2.INTER\PYZus{}LINEAR + cv2.WARP\PYZus{}INVERSE\PYZus{}MAP)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{polar\PYZus{}image}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polar image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Text(0.5, 1.0, 'polar image')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{filtro-para-resaltar-color-negro}{%
+\section{4.-Filtro para resaltar color
+Negro}\label{filtro-para-resaltar-color-negro}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{gray\PYZus{}image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{polar\PYZus{}image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2HSV}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+        
+        \PY{n}{kernel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{new\PYZus{}size}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}kernel\PYZus{}2 = np.ones((1, int(new\PYZus{}size/3)),np.uint8)}
+        \PY{n}{dilate} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{dilate}\PY{p}{(}\PY{n}{gray\PYZus{}image}\PY{p}{,} \PY{n}{kernel}\PY{p}{,} \PY{n}{iterations} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{erosion} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{erode}\PY{p}{(}\PY{n}{dilate}\PY{p}{,} \PY{n}{kernel}\PY{p}{,} \PY{n}{iterations} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{dilate}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dilate image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{erosion}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{erosion image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} Text(0.5, 1.0, 'erosion image')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{umbral-escalonado}{%
+\section{5.- Umbral escalonado}\label{umbral-escalonado}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}plt.hist(gray\PYZus{}image)}
+        
+        \PY{c+c1}{\PYZsh{}ret2,th2 = cv2.threshold(erosion,0,255,cv2.THRESH\PYZus{}BINARY\PYZus{}INV + cv2.THRESH\PYZus{}OTSU)}
+        
+        \PY{n}{umbral} \PY{o}{=} \PY{l+m+mi}{240}
+        \PY{n}{ret}\PY{p}{,}\PY{n}{th} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{threshold}\PY{p}{(}\PY{n}{erosion}\PY{p}{,}\PY{n}{umbral}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{THRESH\PYZus{}BINARY\PYZus{}INV}\PY{p}{)}
+        
+        \PY{k}{while} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{th} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{)}\PY{o}{/}\PY{n}{th}\PY{o}{.}\PY{n}{size}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100} \PY{o}{\PYZgt{}} \PY{l+m+mi}{5}\PY{p}{:} \PY{c+c1}{\PYZsh{} porcentaje de area de las manillas}
+            \PY{n}{umbral} \PY{o}{/}\PY{o}{=}\PY{l+m+mf}{1.3}
+            \PY{n}{ret}\PY{p}{,}\PY{n}{th} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{threshold}\PY{p}{(}\PY{n}{erosion}\PY{p}{,}\PY{n}{umbral}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{THRESH\PYZus{}BINARY\PYZus{}INV}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Umbral fijo1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ret}\PY{p}{)}
+            
+        
+        
+            
+        \PY{n}{th} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{dilate}\PY{p}{(}\PY{n}{th}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}\PY{p}{,} \PY{n}{iterations} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{th}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{threshold image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Umbral fijo1 184.0
+Umbral fijo1 142.0
+Umbral fijo1 109.0
+Umbral fijo1 84.0
+Umbral fijo1 64.0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Text(0.5, 1.0, 'threshold image')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{buscar-centroides-correctos}{%
+\section{6.- Buscar centroides
+correctos}\label{buscar-centroides-correctos}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{num\PYZus{}labels}\PY{p}{,} \PY{n}{labels\PYZus{}im} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{connectedComponents}\PY{p}{(}\PY{n}{th}\PY{p}{)}
+         
+         \PY{n}{labels\PYZus{}im} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{contours}\PY{p}{,} \PY{n}{hierarchy} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{findContours}\PY{p}{(}\PY{n}{th}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{RETR\PYZus{}TREE}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{CHAIN\PYZus{}APPROX\PYZus{}SIMPLE}\PY{p}{)}
+         
+         \PY{n}{threshold\PYZus{}min\PYZus{}area} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{0.0001}
+         \PY{n}{copy\PYZus{}th} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{th}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}GRAY2RGB}\PY{p}{)}
+          
+         \PY{n}{center\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{n}\PY{p}{,} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{contours}\PY{p}{)}\PY{p}{:}
+            \PY{n}{M} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{moments}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+            \PY{n}{cX} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{M}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{/} \PY{p}{(}\PY{n}{M}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m00}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)}\PY{p}{)}
+            \PY{n}{cY} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{M}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m01}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{/} \PY{p}{(}\PY{n}{M}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m00}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)}\PY{p}{)}
+            \PY{n}{max\PYZus{}X} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{p}{[}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{c}\PY{p}{]}\PY{p}{)}
+            \PY{n}{min\PYZus{}X} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{p}{[}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{c}\PY{p}{]}\PY{p}{)}
+            \PY{k}{if} \PY{n}{min\PYZus{}X} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{M}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m00}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{threshold\PYZus{}min\PYZus{}area}\PY{p}{:}
+                \PY{n}{center\PYZus{}dict}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{cX}\PY{p}{,} \PY{n}{cY}\PY{p}{,} \PY{n}{max\PYZus{}X}\PY{p}{,} \PY{n}{M}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m00}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Centroides, distancia máxima de la barra y tamaño de la barra}
+         
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{copy\PYZus{}th}\PY{p}{,} \PY{p}{(}\PY{n}{cX}\PY{p}{,} \PY{n}{cY}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} 
+            \PY{c+c1}{\PYZsh{}print(M[\PYZdq{}m00\PYZdq{}]) }
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{copy\PYZus{}th}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Centroids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{center\PYZus{}dict}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} \{0: (24, 288, 53, 145.5)\}
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{uniuxf3n-de-centroides-y-grados-de-la-manecilla}{%
+\section{7.- Unión de centroides y grados de la
+manecilla}\label{uniuxf3n-de-centroides-y-grados-de-la-manecilla}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{center\PYZus{}dict\PYZus{}filter} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{center\PYZus{}dict}\PY{p}{:}
+         
+             \PY{n}{cX}\PY{p}{,}\PY{n}{cY}\PY{p}{,} \PY{n}{max\PYZus{}X}\PY{p}{,} \PY{n}{masa} \PY{o}{=} \PY{n}{center\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{center\PYZus{}dict}\PY{p}{:}
+                 
+                 \PY{k}{if}  \PY{n}{k} \PY{o}{==} \PY{n}{j}\PY{p}{:}
+                     \PY{k}{continue}
+                 \PY{c+c1}{\PYZsh{}print(k,j)}
+                 \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{cY}\PY{o}{\PYZhy{}}\PY{n}{center\PYZus{}dict}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZlt{}} \PY{l+m+mi}{200} \PY{o+ow}{and} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{cY}\PY{o}{\PYZhy{}}\PY{n}{center\PYZus{}dict}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{160}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{max\PYZus{}X} \PY{o}{\PYZgt{}} \PY{n}{center\PYZus{}dict}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{center\PYZus{}dict\PYZus{}filter}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{center\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]}
+                         \PY{n}{n} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             
+         \PY{k}{if} \PY{n}{center\PYZus{}dict\PYZus{}filter} \PY{o}{==} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{:} \PY{c+c1}{\PYZsh{}\PYZsh{} la barra no cruza el centro del reloj}
+             \PY{n}{center\PYZus{}dict\PYZus{}filter} \PY{o}{=} \PY{n}{center\PYZus{}dict} 
+             
+         \PY{n}{center\PYZus{}dict\PYZus{}filter}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{center\PYZus{}dict\PYZus{}filter}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Existe una manilla en los }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{center\PYZus{}dict\PYZus{}filter}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{90}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{360}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ grado}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}center}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Imagen Centrada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Existe una manilla en los  18  grado
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} Text(0.5, 1.0, 'Imagen Centrada')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
